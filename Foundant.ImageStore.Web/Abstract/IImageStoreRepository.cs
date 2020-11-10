@@ -20,7 +20,7 @@ namespace Foundant.Abstract
         ImageDAO GetImageById(Guid id);
         List<ImageDAO> GetImagesByTag(string tag);
         List<ImageDAO> GetImagesByName(string name);
-        bool DeleteImage(Guid id);
+        Task<bool> DeleteImageById(Guid imageId);
         bool DeleteImagesByIds(List<Guid> id);
 
     }

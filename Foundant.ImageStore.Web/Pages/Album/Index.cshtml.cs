@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using static Foundant.AddImage;
 using static Foundant.GetAlbumById;
+using static Foundant.RemoveImageFromAlbumById;
 
 namespace Foundant.ImageStore.Web.Pages.Album
 {
@@ -27,10 +28,17 @@ namespace Foundant.ImageStore.Web.Pages.Album
             {
                 Id = album.Id,
                 Name = album.Name,
-                Images = album.Images?.Select(c => new ImageDTO { Id = c.Id, Name = c.Name, Created = c.Created }).ToList()
+                Images = album.Images?.Select(c => new ImageDTO { Id = c.Id, Name = c.Name, Created = c.Created, Extension = c.Extension }).ToList()
             };
 
             Data = new AddImageCommand(id, string.Empty, null);
+        }
+
+        public async Task<IActionResult> OnGetDeleteImageAsync(Guid albumId, Guid imageId)
+        {
+            var album = await _mediator.Send(new RemoveImageFromAlbumByIdCommand(albumId, imageId));
+
+            return RedirectToPage("/Album/Index", new { id = albumId });
         }
 
         [BindProperty]
@@ -56,6 +64,7 @@ namespace Foundant.ImageStore.Web.Pages.Album
         {
             public Guid Id { get; set; }
             public string Name { get; set; }
+            public string Extension { get; set; }
             public DateTime Created { get; set; }
         }
     }

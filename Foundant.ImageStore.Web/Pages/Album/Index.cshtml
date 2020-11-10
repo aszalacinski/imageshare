@@ -38,7 +38,11 @@
                 foreach (var image in Model.AlbumDetails.Images.OrderBy(c => c.Created))
                 {
                     <li>
-                        <a asp-page="/Album/Image/Index" asp-route-albumId="@Model.AlbumDetails.Id" asp-route-imageId="@image.Id">@image.Name</a>
+                        <a asp-page="/Album/Image/Index" asp-route-albumId="@Model.AlbumDetails.Id" asp-route-imageId="@image.Id">
+                            <img src="~/albums/@Model.AlbumDetails.Id/@image.Id@image.Extension" alt="@image.Name" />
+                        </a>
+                        <span>@image.Name</span>
+                        <a asp-page="/Album/Index" asp-page-handler="DeleteImage" asp-route-albumId="@Model.AlbumDetails.Id" asp-route-imageId="@image.Id">Delete</a>
                     </li>
                 }
             }

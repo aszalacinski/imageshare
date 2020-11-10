@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace Foundant.ImageStore.Web.Model
@@ -43,9 +44,15 @@ namespace Foundant.ImageStore.Web.Model
             throw new NotImplementedException();
         }
 
-        public bool DeleteImage(Guid id)
+        public async Task<bool> DeleteImageById(Guid imageId)
         {
-            throw new NotImplementedException();
+            var image = _context.Images.Where(x => x.Id == imageId).FirstOrDefault();
+
+            var _r = _context.Images.Remove(image);
+            await _context.SaveChangesAsync();
+
+            return true;
+            
         }
 
         public bool DeleteImagesByIds(List<Guid> id)
