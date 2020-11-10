@@ -52,12 +52,21 @@ namespace Foundant.ImageStore.Web.Pages.Album.Image
         [BindProperty]
         public AddTagDTO AddTag { get; set; }
 
-        public async Task<IActionResult> AddTagAsync(AddTagDTO tag )
+        public async Task<IActionResult> OnPostAddTagAsync(AddTagDTO tagDetails )
         {
-            var album = await _mediator.Send(new AddImageTagCommand(tag.AlbumId, tag.ImageId, tag.Tag));
+            var album = await _mediator.Send(new AddImageTagCommand(tagDetails.AlbumId, tagDetails.ImageId, tagDetails.Tag));
 
-            return RedirectToPage("/Album/Image/Index", new { albumId = tag.AlbumId, imageId = tag.ImageId });
+            return RedirectToPage("/Album/Image/Index", new { albumId = tagDetails.AlbumId, imageId = tagDetails.ImageId });
         }
+
+        [BindProperty]
+        public Guid AlbumId { get; set; }
+
+        [BindProperty]
+        public Guid ImageId { get; set; }
+
+        [BindProperty]
+        public string Tag { get; set; }
 
         public class AddTagDTO
         {

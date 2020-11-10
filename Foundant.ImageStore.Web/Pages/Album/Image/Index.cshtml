@@ -4,7 +4,7 @@
 }
 
 
-<div style="display: flex; flex-direction: column; margin-left: auto; margin-right: auto">
+<div style="display: flex; flex-direction: row; margin-left: auto; margin-right: auto">
     <div style="display: flex; width: 50%; justify-content: center">
 
         <div>
@@ -36,16 +36,19 @@
     </div>
     <div style="display: flex; flex-direction: column; width: 50%; justify-content: center">
         <div>
-            <form method="post" asp-action="AddTagAsync">
-                <input asp-for="AddTag.AlbumId" type="hidden" />
-                <input asp-for="AddTag.ImageId" type="hidden" />
+            <form method="post" asp-page-handler="AddTag">
+                <input asp-for="AlbumId" type="hidden" />
+                <input asp-for="ImageId" type="hidden" />
                 <div style="display: flex; flex-direction:row">
                     <div>
-                        <label asp-for="AddTag.Tag">Tag:</label>
+                        <label asp-for="Tag">Tag:</label>
                     </div>
                     <div>
-                        <input asp-for="AddTag.Tag" type="text" value="" />
+                        <input asp-for="Tag" />
                     </div>
+                </div>
+                <div>
+                    <button type="submit">Update</button>
                 </div>
             </form>
         </div>
