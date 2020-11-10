@@ -31,17 +31,6 @@ namespace Foundant.ImageStore.Web.Model
             }
 
             throw new Exception("Couldn't save data");
-
-        }
-
-        public ImageDAO AddImage(string name, string description = null, List<string> tags = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool DeleteAlbumById(Guid id)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<bool> DeleteImageById(Guid imageId)
@@ -52,12 +41,6 @@ namespace Foundant.ImageStore.Web.Model
             await _context.SaveChangesAsync();
 
             return true;
-            
-        }
-
-        public bool DeleteImagesByIds(List<Guid> id)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<Album> GetAlbumById(Guid id)
@@ -70,26 +53,6 @@ namespace Foundant.ImageStore.Web.Model
         {
             var albums = await _context.Albums.Include(x => x.Images).ToListAsync();
             return albums.ToEntity();
-        }
-
-        public ImageDAO GetImageById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<ImageDAO> GetImagesByAlbumId(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<ImageDAO> GetImagesByName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<ImageDAO> GetImagesByTag(string tag)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<Album> UpdateAlbum(Album updatedAlbum)
@@ -107,11 +70,6 @@ namespace Foundant.ImageStore.Web.Model
             {
                 throw ex;
             }
-        }
-
-        public ImageDAO UpdateImage(Guid id, string name, string description = null, List<string> tags = null)
-        {
-            throw new NotImplementedException();
         }
     }
 }

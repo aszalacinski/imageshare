@@ -12,16 +12,8 @@ namespace Foundant.Abstract
         Task<Album> UpdateAlbum(Album updatedAlbum);
         Task<Album> GetAlbumById(Guid id);
         Task<List<Album>> GetAlbums();
-        bool DeleteAlbumById(Guid id);
 
-        ImageDAO AddImage(string name, string description = null, List<string> tags = null);
-        ImageDAO UpdateImage(Guid id, string name, string description = null, List<string> tags = null);
-        List<ImageDAO> GetImagesByAlbumId(Guid id);
-        ImageDAO GetImageById(Guid id);
-        List<ImageDAO> GetImagesByTag(string tag);
-        List<ImageDAO> GetImagesByName(string name);
         Task<bool> DeleteImageById(Guid imageId);
-        bool DeleteImagesByIds(List<Guid> id);
 
     }
 }

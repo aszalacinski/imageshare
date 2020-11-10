@@ -14,15 +14,12 @@ namespace Foundant.ImageStore.Web.Pages.Album.Image
     public class IndexModel : PageModel
     {
         private readonly IMediator _mediator;
-        private IWebHostEnvironment _hostEnvironment;
         [BindProperty]
         public ImageEditDTO ImageToEdit { get; set; }
-        public string ImageUrl { get; set; }
 
-        public IndexModel(IMediator mediator, IWebHostEnvironment hostingEnvironment)
+        public IndexModel(IMediator mediator)
         {
             _mediator = mediator;
-            _hostEnvironment = hostingEnvironment;
         }
 
         public async Task OnGetAsync(Guid albumId, Guid imageId)
@@ -34,7 +31,7 @@ namespace Foundant.ImageStore.Web.Pages.Album.Image
 
         public async Task<IActionResult> OnPostAsync(ImageEditDTO imageToEdit)
         {
-            var album = await _mediator.Send(new UpdateImageCommand(imageToEdit.AlbumId, imageToEdit.ImageId, imageToEdit.ImageName, imageToEdit.ImageDescription));
+            _ = await _mediator.Send(new UpdateImageCommand(imageToEdit.AlbumId, imageToEdit.ImageId, imageToEdit.ImageName, imageToEdit.ImageDescription));
 
             return RedirectToPage("/Album/Image/Index", new { albumId = imageToEdit.AlbumId, imageId = imageToEdit.ImageId });
         }
@@ -54,7 +51,7 @@ namespace Foundant.ImageStore.Web.Pages.Album.Image
 
         public async Task<IActionResult> OnPostAddTagAsync(AddTagDTO tagDetails )
         {
-            var album = await _mediator.Send(new AddImageTagCommand(tagDetails.AlbumId, tagDetails.ImageId, tagDetails.Tag));
+            _ = await _mediator.Send(new AddImageTagCommand(tagDetails.AlbumId, tagDetails.ImageId, tagDetails.Tag));
 
             return RedirectToPage("/Album/Image/Index", new { albumId = tagDetails.AlbumId, imageId = tagDetails.ImageId });
         }

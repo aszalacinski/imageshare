@@ -46,7 +46,7 @@ namespace Foundant.ImageStore.Web.Pages.Album
 
         public async Task<IActionResult> OnPostAsync()
         {
-            // validate mime type
+            // TODO: validate mime type
 
             var value = await _mediator.Send(Data);
 
