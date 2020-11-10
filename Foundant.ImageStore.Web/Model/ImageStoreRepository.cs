@@ -62,7 +62,7 @@ namespace Foundant.ImageStore.Web.Model
 
         public async Task<List<Album>> GetAlbums()
         {
-            var albums = await _context.Albums.ToListAsync();
+            var albums = await _context.Albums.Include(x => x.Images).ToListAsync();
             return albums.ToEntity();
         }
 
@@ -91,6 +91,7 @@ namespace Foundant.ImageStore.Web.Model
             var album = await _context.Albums.Where(x => x.Id == updatedAlbum.Id).FirstOrDefaultAsync();
             album.Name = updatedAlbum.Name;
             album.Images = updatedAlbum.Images.ToSnapshot().ToDAO();
+            _context.Update(album);
             await _context.SaveChangesAsync();
             return album.ToEntity();
         }

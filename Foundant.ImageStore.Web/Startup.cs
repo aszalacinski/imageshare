@@ -25,7 +25,9 @@ namespace Foundant.ImageStore.Web
             services.AddMediatR(typeof(Startup));
 
             services.AddDbContext<ImageStoreDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ImageStoreDB")));
+                options
+                    .UseSqlServer(Configuration.GetConnectionString("ImageStoreDB"))
+                    .EnableSensitiveDataLogging());
 
 
             services.AddScoped<IImageStoreRepository, ImageStoreEFRepository>();
