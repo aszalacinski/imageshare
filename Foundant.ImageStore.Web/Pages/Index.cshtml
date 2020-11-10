@@ -1,0 +1,36 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Album Management";
+}
+
+<div style="display: flex; flex-direction: row; margin-left: auto; margin-right: auto">
+    <div style="display: flex; width: 50%; justify-content: center">
+        <form method="post">
+            <div style="display: flex; flex-direction: column">
+                <div style="display: flex; flex-direction: column">
+                    <div>
+                        <label asp-for="Data.AlbumName">Album Name:</label>
+                    </div>
+                    <div>
+                        <input asp-for="Data.AlbumName" type="text" placeholder="Enter an Album Name" />
+                    </div>
+
+                </div>
+                <div>
+                    <button type="submit">Update</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div style="display: flex; width: 50%; justify-content: center">
+        <ul>
+            @foreach (var albumDetails in Model.AlbumDetails.OrderBy(c => c.AlbumName))
+            {
+                <li>
+                    <a asp-page="/Album/Index" asp-route-id="@albumDetails.AlbumId">@albumDetails.AlbumName - @albumDetails.NumberOfImages</a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+﻿@page "{id:Guid}"
+@model Foundant.ImageStore.Web.Pages.Album.IndexModel
+@{
+    ViewData["Title"] = "Image Management";
+}
+
+<div style="display: flex; flex-direction: row; margin-left: auto; margin-right: auto">
+    <div style="display: flex; width: 50%; justify-content: center">
+        <form method="post" enctype="multipart/form-data">
+            <div style="display: flex; flex-direction: column">
+                <input asp-for="Data.AlbumId" type="hidden" />
+                <div style="display: flex; flex-direction: column">
+                    <div>
+                        <label asp-for="Data.ImageName">Image Name:</label>
+                    </div>
+                    <div>
+                        <input asp-for="Data.ImageName" type="text" placeholder="Enter an Image Name" />
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column">
+                    <div>
+                        <label asp-for="Data.File">Image:</label>
+                    </div>
+                    <div>
+                        <input asp-for="Data.File" type="file" placeholder="Upload an Image" />
+                    </div>
+                </div>
+                <div>
+                    <button type="submit">Update</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div style="display: flex; width: 50%; justify-content: center">
+        <ul>
+            @if (Model.AlbumDetails.Images != null)
+            {
+                foreach (var image in Model.AlbumDetails.Images.OrderBy(c => c.Created))
+                {
+                    <li>
+                        <a asp-page="/Image/Index" asp-route-id="@image.Id">@image.Name</a>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>
