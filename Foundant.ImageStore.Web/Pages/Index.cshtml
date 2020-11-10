@@ -4,33 +4,29 @@
     ViewData["Title"] = "Album Management";
 }
 
-<div style="display: flex; flex-direction: row; margin-left: auto; margin-right: auto">
+<div style="display: flex; flex-direction: row; margin-left: auto; margin-right: auto; margin-top: 10rem; border: 1px solid #808080; padding: 4rem 1rem; max-width: 50rem; border-radius: .50rem">
     <div style="display: flex; width: 50%; justify-content: center">
-        <form method="post">
-            <div style="display: flex; flex-direction: column">
-                <div style="display: flex; flex-direction: column">
-                    <div>
-                        <label asp-for="Data.AlbumName">Album Name:</label>
-                    </div>
-                    <div>
-                        <input asp-for="Data.AlbumName" type="text" placeholder="Enter an Album Name" />
-                    </div>
-
-                </div>
-                <div>
-                    <button type="submit">Update</button>
-                </div>
+        <form method="post" style="width: 100%; ">
+            <div style="display: flex; align-items: center; border-bottom: 1px solid #808080; padding-top: .5rem; padding-bottom: .5rem;">
+                <input asp-for="Data.AlbumName" type="text" placeholder="Enter an Album Name" class="formField" />
+                <button type="submit" class="formButton">Update</button>
             </div>
         </form>
     </div>
-    <div style="display: flex; width: 50%; justify-content: center">
-        <ul>
-            @foreach (var albumDetails in Model.AlbumDetails.OrderBy(c => c.AlbumName))
-            {
-                <li>
-                    <a asp-page="/Album/Index" asp-route-id="@albumDetails.AlbumId">@albumDetails.AlbumName - @albumDetails.NumberOfImages</a>
-                </li>
-            }
-        </ul>
+    <div style="display: flex; flex-direction: column; width: 50%; ">
+        <div style="display: flex; justify-content: center; font-weight: 500; font-size: 1.5rem">
+            Albums
+        </div>
+        <div style="display: flex; justify-content: center">
+            <ul style="list-style-type: none; width: 100%; ">
+                @foreach (var albumDetails in Model.AlbumDetails.OrderBy(c => c.AlbumName))
+                {
+                    <li style="width: 100%">
+                        <a class="btn btn-outline-primary" style="margin-bottom: .5rem; width: 100%" asp-page="/Album/Index" asp-route-id="@albumDetails.AlbumId">@albumDetails.AlbumName <span class="buttonBadge">@albumDetails.NumberOfImages</span></a>
+                    </li>
+                }
+            </ul>
+        </div>
+        
     </div>
 </div>

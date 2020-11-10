@@ -69,3 +69,46 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.formField {
+    appearance: none;
+    background-color: transparent;
+    border-style: none;
+    width: 100%;
+    color: #808080;
+    margin-right: .75rem;
+    padding: .25rem .5rem;
+    line-height: 1.25rem;
+}
+
+.formField:focus {
+    outline: none;
+}
+
+.formButton {
+    display: flex;
+    flex-shrink: 0;
+    font-size: 0.875rem;
+    padding: .50rem 1.5rem;
+    background: #808080;
+    border: 1px solid #808080;
+    line-height: 1.25rem;
+    border-radius: .25rem;
+    color: #ffffff;
+}
+
+    .formButton:hover {
+        background-color: #bfbfbf;
+        border: 1px solid #e6e6e6;
+        color: #000000;
+    }
+
+.buttonBadge {
+    border-radius: 9999px;
+    background-color: #006fe6 !important;
+    padding: .15rem 1rem;
+    font-size: 0.875rem;
+    color: #ffffff;
+    float: right;
+    border: 1px solid #ffffff;
+}

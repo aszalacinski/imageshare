@@ -32,7 +32,7 @@ namespace Foundant.ImageStore.Web
 
             services.AddScoped<IImageStoreRepository, ImageStoreEFRepository>();
 
-            services.AddRazorPages();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
