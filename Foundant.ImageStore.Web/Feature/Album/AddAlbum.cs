@@ -33,11 +33,11 @@ namespace Foundant
 
             public async Task<Album> Handle(AddAlbumCommand cmd, CancellationToken cancellationToken)
             {
-                var album = Album.Create(Guid.NewGuid(), cmd.AlbumName, DateTime.UtcNow, new List<Image>());
+                var album = Album.Create(Guid.Empty, cmd.AlbumName, DateTime.UtcNow, new List<Image>());
+                var newAlbum = await _repo.AddAlbum(album);
+                _ = _mediator.Send(new AddAlbumFolderCommand(newAlbum.Id));
 
-                _ = _mediator.Send(new AddAlbumFolderCommand(album.Id));
-
-                return await _repo.AddAlbum(album);
+                return newAlbum;
             }
         }
     }

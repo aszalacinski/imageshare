@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -45,12 +46,14 @@ namespace Foundant
 
                 // add image info to database
                 var album = await _mediator.Send(new GetAlbumByIdQuery(command.AlbumId));
-                var imageId = album.AddImage(command.ImageName, string.Empty, new List<string>());
+                var imageId = album.AddImage(command.ImageName, string.Empty, new List<string>(), Path.GetExtension(command.File.FileName));
+
+                var updatedAlbum = await _repo.UpdateAlbum(album);
 
                 // upload image to directory
-                _ = _mediator.Send(new AddImageToFolderCommand(command.AlbumId, imageId, command.File));
+                _ = _mediator.Send(new AddImageToFolderCommand(command.AlbumId, updatedAlbum.Images.OrderByDescending(x => x.Created).FirstOrDefault().Id, command.File));
 
-                return await _repo.UpdateAlbum(album);
+                return updatedAlbum;
 
             }
         }

@@ -42,7 +42,7 @@ namespace Foundant.ImageStore.Web.Pages.Album
 
             var value = await _mediator.Send(Data);
 
-            return RedirectToPage("/Index", new { id = Data.AlbumId });
+            return RedirectToPage("/Album/Index", new { id = Data.AlbumId });
         }
 
         public class AlbumDTO

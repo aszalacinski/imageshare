@@ -31,9 +31,9 @@ namespace Foundant
             Name = name;
         }
 
-        public Guid AddImage(string name, string description, List<string> tags)
+        public Guid AddImage(string name, string description, List<string> tags, string extension)
         {
-            Image newImage = Image.Create(Guid.NewGuid(), name, description, tags, DateTime.UtcNow);
+            Image newImage = Image.Create(Guid.Empty, extension, name, description, tags, DateTime.UtcNow);
 
             Images.Add(newImage);
 

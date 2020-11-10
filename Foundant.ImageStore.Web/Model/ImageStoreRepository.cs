@@ -55,8 +55,7 @@ namespace Foundant.ImageStore.Web.Model
 
         public async Task<Album> GetAlbumById(Guid id)
         {
-            var album = await _context.Albums.Where(x => x.Id == id).Include(x => x.Images).FirstOrDefaultAsync();
-
+            var album = await _context.Albums.AsNoTracking().Where(x => x.Id == id).Include(x => x.Images).FirstOrDefaultAsync();
             return album.ToEntity();
         }
 
@@ -87,13 +86,20 @@ namespace Foundant.ImageStore.Web.Model
         }
 
         public async Task<Album> UpdateAlbum(Album updatedAlbum)
-        {
-            var album = await _context.Albums.Where(x => x.Id == updatedAlbum.Id).FirstOrDefaultAsync();
-            album.Name = updatedAlbum.Name;
-            album.Images = updatedAlbum.Images.ToSnapshot().ToDAO();
-            _context.Update(album);
-            await _context.SaveChangesAsync();
-            return album.ToEntity();
+        { 
+            try
+            {
+                var album = await _context.Albums.Where(x => x.Id == updatedAlbum.Id).FirstOrDefaultAsync();
+                album.Name = updatedAlbum.Name;
+                album.Images = updatedAlbum.Images.ToSnapshot().ToDAO();
+                _context.Albums.Update(album);
+                await _context.SaveChangesAsync();
+                return album.ToEntity();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public ImageDAO UpdateImage(Guid id, string name, string description = null, List<string> tags = null)

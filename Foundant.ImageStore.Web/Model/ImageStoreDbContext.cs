@@ -17,10 +17,6 @@ namespace Foundant.ImageStore.Web.Model
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            modelBuilder.Entity<AlbumDAO>().Property(b => b.Id).ValueGeneratedNever();
-
-            modelBuilder.Entity<ImageDAO>().Property(b => b.Id).ValueGeneratedNever();
             modelBuilder.Entity<ImageDAO>().Property(b => b._Tags).HasColumnName("Tags");
             modelBuilder.Entity<ImageDAO>().Ignore(c => c.Tags);
         }
