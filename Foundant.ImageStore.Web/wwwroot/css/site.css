@@ -111,4 +111,31 @@ body {
     color: #ffffff;
     float: right;
     border: 1px solid #ffffff;
+    line-height: 1.25rem;
 }
+
+.formSelect {
+    display: block;
+    appearance: none;
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #b0b0b0;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    border-radius: .25rem;
+    margin-right: 2rem;
+    line-height: 1.25rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+    .formSelect:hover {
+        border: 1px solid #535353;
+    }
+
+    .formSelect:focus {
+        box-shadow: 0 0 0 3px rgba(66,153,225,.5);
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+    }

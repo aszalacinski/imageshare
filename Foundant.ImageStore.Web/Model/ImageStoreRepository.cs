@@ -3,8 +3,8 @@ using Foundant.Model.DAO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace Foundant.ImageStore.Web.Model
@@ -70,6 +70,16 @@ namespace Foundant.ImageStore.Web.Model
             {
                 throw ex;
             }
+        }
+
+        public async Task<List<string>> GetImageTags()
+        {
+            var allTags = await _context.Images.Select(c => c.Tags).ToListAsync();
+
+            var tags = allTags.SelectMany(x => x).Distinct().ToList();
+
+            return tags;
+
         }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using static Foundant.AddImage;
 using static Foundant.GetAlbumById;
+using static Foundant.ImageStore.Web.Feature.Image.GetImageTags;
 using static Foundant.RemoveImageFromAlbumById;
 
 namespace Foundant.ImageStore.Web.Pages.Album
@@ -15,6 +16,10 @@ namespace Foundant.ImageStore.Web.Pages.Album
     {
         private readonly IMediator _mediator;
         public AlbumDTO AlbumDetails { get; private set; }
+        public List<string> Tags { get; private set; }
+        public string TagToSearch { get; private set; }
+        [BindProperty]
+        public Guid AlbumId { get; private set; }
 
         public IndexModel(IMediator mediator)
         {
@@ -23,6 +28,7 @@ namespace Foundant.ImageStore.Web.Pages.Album
 
         public async Task OnGetAsync(Guid id)
         {
+            AlbumId = id;
             var album = await _mediator.Send(new GetAlbumByIdQuery(id));
             AlbumDetails = new AlbumDTO
             {
@@ -32,6 +38,25 @@ namespace Foundant.ImageStore.Web.Pages.Album
             };
 
             Data = new AddImageCommand(id, string.Empty, null);
+
+            Tags = await _mediator.Send(new GetImageTagsQuery());
+        }
+
+        public async Task OnPostSearchByTagAsync(Guid albumId, string tagToSearch)
+        {
+            AlbumId = albumId;
+            var album = await _mediator.Send(new GetAlbumByIdQuery(albumId));
+            AlbumDetails = new AlbumDTO
+            {
+                Id = album.Id,
+                Name = album.Name
+            };
+
+            AlbumDetails.Images = album.Images?.Where(c => c.Tags.Contains(tagToSearch)).Select(c => new ImageDTO { Id = c.Id, Name = c.Name, Created = c.Created, Extension = c.Extension }).ToList();
+
+            Data = new AddImageCommand(albumId, string.Empty, null);
+            Tags = await _mediator.Send(new GetImageTagsQuery());
+
         }
 
         public async Task<IActionResult> OnGetDeleteImageAsync(Guid albumId, Guid imageId)

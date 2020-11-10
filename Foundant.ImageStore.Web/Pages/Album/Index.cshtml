@@ -4,7 +4,7 @@
     ViewData["Title"] = "Image Management";
 }
 
-<div style="display: flex; flex-direction: row; margin-left: auto; margin-right: auto; margin-top: 10rem;">
+<div style="display: flex; flex-direction: row; margin-left: auto; margin-right: auto; margin-top: 2rem;">
     <div style="display: flex; width: 50%; justify-content: center">
         <form method="post" enctype="multipart/form-data">
             <div style="display: flex; flex-direction: column">
@@ -32,20 +32,31 @@
         </form>
     </div>
     <div style="display: flex; flex-direction: column; width: 50%; justify-content: center">
-        <ul>
+        <div>
+            <form method="post" asp-page-handler="SearchByTag" style="width: 100%;">
+                <input asp-for="AlbumId" type="hidden" />
+                <div style="display: flex; align-items: center; border-bottom: 1px solid #808080; padding-top: .5rem; padding-bottom: .5rem;">
+                    <select asp-for="TagToSearch" asp-items="@(new SelectList(Model.Tags))" class="formSelect">
+                        <option value="">Pick one</option>
+                    </select>
+                    <button type="submit" class="formButton">Search by Tag</button>
+                </div>
+            </form>
+        </div>
+        <div style="display: flex; flex-direction: row">
             @if (Model.AlbumDetails.Images != null)
             {
                 foreach (var image in Model.AlbumDetails.Images.OrderBy(c => c.Created))
                 {
-                    <li style="display: flex; flex-direction: column">
+                    <div style="display: flex; flex-direction: column; align-items: center">
                         <a asp-page="/Album/Image/Index" asp-route-albumId="@Model.AlbumDetails.Id" asp-route-imageId="@image.Id">
                             <img src="~/albums/@Model.AlbumDetails.Id/@image.Id@image.Extension" alt="@image.Name" />
                         </a>
                         <span>@image.Name</span>
                         <a asp-page="/Album/Index" asp-page-handler="DeleteImage" asp-route-albumId="@Model.AlbumDetails.Id" asp-route-imageId="@image.Id">Delete</a>
-                    </li>
+                    </div>
                 }
             }
-        </ul>
+        </div>
     </div>
 </div>

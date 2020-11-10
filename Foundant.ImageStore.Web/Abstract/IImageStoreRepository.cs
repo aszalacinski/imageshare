@@ -14,6 +14,7 @@ namespace Foundant.Abstract
         Task<List<Album>> GetAlbums();
 
         Task<bool> DeleteImageById(Guid imageId);
+        Task<List<string>> GetImageTags();
 
     }
 }
