@@ -33,7 +33,7 @@ namespace Foundant.ImageStore.Web.Pages.Image
         {
             _ = await _mediator.Send(new UpdateImageCommand(imageToEdit.AlbumId, imageToEdit.ImageId, imageToEdit.ImageName, imageToEdit.ImageDescription));
 
-            return RedirectToPage("/Album/Image/Index", new { albumId = imageToEdit.AlbumId, imageId = imageToEdit.ImageId });
+            return RedirectToPage("/Image/Index", new { albumId = imageToEdit.AlbumId, imageId = imageToEdit.ImageId });
         }
 
         public class ImageEditDTO
@@ -53,7 +53,7 @@ namespace Foundant.ImageStore.Web.Pages.Image
         {
             _ = await _mediator.Send(new AddImageTagCommand(tagDetails.AlbumId, tagDetails.ImageId, tagDetails.Tag));
 
-            return RedirectToPage("/Album/Image/Index", new { albumId = tagDetails.AlbumId, imageId = tagDetails.ImageId });
+            return RedirectToPage("/Image/Index", new { albumId = tagDetails.AlbumId, imageId = tagDetails.ImageId });
         }
 
         [BindProperty]
