@@ -9,26 +9,29 @@
         <form method="post" enctype="multipart/form-data">
             <div style="display: flex; flex-direction: column">
                 <input asp-for="Data.AlbumId" type="hidden" />
-                <div style="display: flex; flex-direction: column">
-                    <div>
-                        <label asp-for="Data.ImageName">Image Name:</label>
+                <div class="formGroup">
+                    <div style="width: 20%">
+                        <label asp-for="Data.ImageName" class="formGroupLabel">Image Name:</label>
                     </div>
-                    <div>
-                        <input asp-for="Data.ImageName" type="text" placeholder="Enter an Image Name" />
-                    </div>
-                </div>
-                <div style="display: flex; flex-direction: column">
-                    <div>
-                        <label asp-for="Data.File">Image:</label>
-                    </div>
-                    <div>
-                        <input asp-for="Data.File" type="file" placeholder="Upload an Image" />
+                    <div style="width: 80%">
+                        <input asp-for="Data.ImageName" type="text" placeholder="Enter an Image Name" class="formGroupField" />
                     </div>
                 </div>
-                <div>
-                    <button type="submit">Update</button>
+                <div class="formGroup">
+                    <div style="width: 20%">
+                        <label asp-for="Data.File" class="formGroupLabel">Image:</label>
+                    </div>
+                    <div style="width: 80%">
+                        <input asp-for="Data.File" type="file" placeholder="Upload an Image" class="formGroupField" />
+                    </div>
                 </div>
-            </div>
+                <div class="formGroup">
+                    <div style="width: 20%"></div>
+                    <div style="width: 80%">
+                        <button type="submit" class="formButton">Update</button>
+                    </div>
+                    </div>
+                </div>
         </form>
     </div>
     <div style="display: flex; flex-direction: column; width: 50%; justify-content: center">
