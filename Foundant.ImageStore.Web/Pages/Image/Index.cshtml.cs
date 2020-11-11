@@ -9,7 +9,7 @@ using static Foundant.AddImageTag;
 using static Foundant.GetImageById;
 using static Foundant.ImageStore.Web.Feature.Image.UpdateImage;
 
-namespace Foundant.ImageStore.Web.Pages.Album.Image
+namespace Foundant.ImageStore.Web.Pages.Image
 {
     public class IndexModel : PageModel
     {

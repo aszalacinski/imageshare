@@ -49,7 +49,7 @@
                 foreach (var image in Model.AlbumDetails.Images.OrderBy(c => c.Created))
                 {
                     <div style="display: flex; flex-direction: column; align-items: center">
-                        <a asp-page="/Album/Image/Index" asp-route-albumId="@Model.AlbumDetails.Id" asp-route-imageId="@image.Id">
+                        <a asp-page="/Image/Index" asp-route-albumId="@Model.AlbumDetails.Id" asp-route-imageId="@image.Id">
                             <img src="~/albums/@Model.AlbumDetails.Id/@image.Id@image.Extension" alt="@image.Name" />
                         </a>
                         <span>@image.Name</span>

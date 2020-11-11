@@ -1,0 +1,101 @@
+﻿@page "{albumId:Guid}/{imageId:Guid}"
+@model Foundant.ImageStore.Web.Pages.Image.IndexModel
+@{
+}
+
+<a asp-page="/Album" asp-route-id="AlbumId"><< Back to Album</a>
+<div style="display: flex; flex-direction: column; margin-left: auto; margin-right: auto; margin-top: 2rem;">
+    <div style="display: flex; flex-direction: row;">
+        <div style="width: 33%; text-align: right;">
+            <div style="display: flex; flex-direction: column">
+                <div>
+                    <img style="border: 1px solid #e2e2e2; border-radius: .75rem" src="~/albums/@Model.ImageToEdit.AlbumId/@Model.ImageToEdit.ImageId@Model.ImageToEdit.Extension" alt="@Model.ImageToEdit.ImageName" />
+                </div>
+                <span>
+                    @{ 
+                        string imageUrl = $"https://{Request.Host}/albums/{Model.ImageToEdit.AlbumId}/{Model.ImageToEdit.ImageId}{Model.ImageToEdit.Extension}";
+                    }
+                    <a href="@imageUrl" target="_blank">@imageUrl</a>
+                    
+                </span>
+            </div>
+            
+        </div>
+        <div style="width: 66%; text-align: left;">
+            <form method="post" style="width: 100%;">
+                <input asp-for="ImageToEdit.AlbumId" type="hidden" />
+                <input asp-for="ImageToEdit.ImageId" type="hidden" />
+                <div class="formGroup">
+                    <div style="width: 20%">
+                        <label asp-for="ImageToEdit.ImageName" class="formGroupLabel">Name:</label>
+                    </div>
+                    <div style="width: 80%">
+                        <input asp-for="ImageToEdit.ImageName" class="formGroupField" />
+                    </div>
+                </div>
+                <div class="formGroup">
+                    <div style="width: 20%">
+                        <label asp-for="ImageToEdit.ImageDescription" class="formGroupLabel">Description:</label>
+                    </div>
+                    <div style="width: 80%">
+                        <input asp-for="ImageToEdit.ImageDescription" class="formGroupField" />
+                    </div>
+                </div>
+                <div class="formGroup">
+                    <div style="width: 20%"></div>
+                    <div style="width: 80%">
+                        <button type="submit" class="formButton">Update</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div style="display: flex; flex-direction: row; justify-content: center">
+        <div style="width: 33%"></div>
+        <div style="width: 66%;">
+
+            <form method="post" asp-page-handler="AddTag" style="width: 100%; margin-bottom: 2rem;">
+                <input asp-for="AlbumId" type="hidden" />
+                <input asp-for="ImageId" type="hidden" />
+                <div class="formGroup">
+                    <div style="width: 20%">
+                        <label asp-for="Tag" class="formGroupLabel">Tag:</label>
+                    </div>
+                    <div style="width: 80%">
+                        <input asp-for="Tag" class="formGroupField" placeholder="Add a tag" />
+                    </div>
+                </div>
+                <div class="formGroup">
+                    <div style="width: 20%"></div>
+                    <div style="width: 80%">
+                        <button type="submit" class="formButton">Update</button>
+                    </div>
+                </div>
+            </form>
+            <div>
+                <div style="width: 33%"></div>
+                <div style="width: 66%">
+                    <div class="formGroup">
+                        <div style="width: 30%"></div>
+                        <div style="width: 70%">
+                            @if (Model.ImageToEdit.Tags != null && Model.ImageToEdit.Tags.Count() > 0)
+                            {
+                                @foreach (var tag in Model.ImageToEdit.Tags)
+                                {
+                                    <span class="tagItem">
+                                        @tag
+                                    </span>
+                                }
+                            }
+                            else
+                            {
+                                <span>No tags assigned</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
